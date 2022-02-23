@@ -31,6 +31,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         this.binding = FragmentProductListBinding.inflate(inflater,container,false);
         View view = this.binding.getRoot();
 
+        // spinner settings
         Spinner spin = this.binding.categorySpinner;
         spin.setOnItemSelectedListener(this);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
@@ -56,19 +57,24 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.add("MOBILE");
-        adapter.add("APP");
+        adapter.add("TABLET");
         adapter.add("CATEGORY");
-
         spin.setAdapter(adapter);
         spin.setSelection(adapter.getCount()); //display hint
         spin.setAdapter(adapter);
+
+        // on click listener
+        this.binding.ivTiles.setOnClickListener(this::onClick);
+
 
         return view;
     }
 
     @Override
     public void onClick(View view) {
-
+        if (view == this.binding.ivTiles) {
+            this.changePage(1);
+        }
     }
 
     @Override
@@ -82,5 +88,12 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    //METHOD GANTI HALAMAN
+    private void changePage(int page){
+        Bundle result = new Bundle();
+        result.putInt("page", page);
+        this.fm.setFragmentResult("CHANGE_PAGE", result);
     }
 }
