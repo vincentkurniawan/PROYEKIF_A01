@@ -12,14 +12,19 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.proif_a01_java.Model.Product;
+import com.example.proif_a01_java.Presenter.ProductPresenter;
+import com.example.proif_a01_java.R;
 import com.example.proif_a01_java.databinding.FragmentProductListBinding;
 
 public class ProductListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private FragmentProductListBinding binding;
     private FragmentManager fm;
-
-    public ProductListFragment() {}
+    private ProductPresenter pp;
+    private  Boolean isList=true;
+    private ProductAdapter pa;
+    private  ProductTilesAdapter pta;
 
     public static ProductListFragment newInstance () {
         return new ProductListFragment();
@@ -29,8 +34,12 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         this.fm = getParentFragmentManager();
         this.binding = FragmentProductListBinding.inflate(inflater,container,false);
+        this.pp=new ProductPresenter();
+
+
         View view = this.binding.getRoot();
 
+        // spinner settings
         Spinner spin = this.binding.categorySpinner;
         spin.setOnItemSelectedListener(this);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item) {
@@ -63,12 +72,40 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         spin.setSelection(adapter.getCount()); //display hint
         spin.setAdapter(adapter);
 
+        // on click listener
+        this.binding.ivTiles.setOnClickListener(this::onClick);
+        this.pa = new ProductAdapter(getActivity(), this.fm,this.pp.getProducts());
+        this.binding.listView.setAdapter(this.pa);
+
+
         return view;
     }
 
     @Override
     public void onClick(View view) {
+        if (view == this.binding.ivTiles) {
+            if(this.isList) {
 
+                //ganti jadi Product tiles
+                if(this.pta==null){
+                    this.pta=new ProductTilesAdapter(getActivity(), this.fm,this.pp.getProducts());
+                }
+                this.binding.listView.setAdapter(this.pta);
+
+                this.isList=false;
+                this.binding.ivTiles.setImageResource(R.drawable.ic_baseline_list_24);
+            }else{
+                //this.changePage(1);
+                if (this.pa == null) {
+                    this.pa = new ProductAdapter(getActivity(), this.fm,this.pp.getProducts());
+                }
+                this.binding.listView.setAdapter(this.pa);
+
+                //set kebalikan
+                this.isList=true;
+                this.binding.ivTiles.setImageResource(R.drawable.ic_baseline_apps_24);
+            }
+        }
     }
 
     @Override
@@ -82,5 +119,12 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    //METHOD GANTI HALAMAN
+    private void changePage(int page){
+        Bundle result = new Bundle();
+        result.putInt("page", page);
+        this.fm.setFragmentResult("CHANGE_PAGE", result);
     }
 }

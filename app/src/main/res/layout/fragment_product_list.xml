@@ -57,13 +57,8 @@
                 android:layout_weight="1"/>
 
             <ImageView
+                android:id="@+id/iv_tiles"
                 android:src="@drawable/ic_baseline_apps_24"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-            </ImageView>
-
-            <ImageView
-                android:src="@drawable/ic_baseline_list_24"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
             </ImageView>
@@ -72,10 +67,64 @@
 
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
+        android:id="@+id/ll_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_toolbar">
+        android:layout_below="@+id/ll_toolbar"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/product_name"
+            android:text="PRODUCT NAME"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/category"
+            android:textAlignment="center"
+            android:text="CATEGORY"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/price"
+            android:textAlignment="center"
+            android:text="PRICE"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/condition"
+            android:textAlignment="center"
+            android:text="CONDITION"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_head">
 
     </ListView>
 

@@ -1,12 +1,16 @@
 package com.example.proif_a01_java;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+
+import com.example.proif_a01_java.View.ProductListFragment;
 import com.example.proif_a01_java.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment fragments[];
+    private ProductListFragment productListFragment;
     private int currentFragment = 1000;
     private final static int backPointer [] = {-100, 0};
 
@@ -23,6 +28,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
+
+        // inisiasi fragment
+        this.fm = this.getSupportFragmentManager();
+        this.productListFragment = ProductListFragment.newInstance();
+
+        this.fragments=new Fragment[100000];
+        this.fragments[0] = this.productListFragment;
+
+        FragmentTransaction ft = this.fm.beginTransaction();
+        ft.add(R.id.fragment_container, this.productListFragment).addToBackStack(null).commit();
+        this.currentFragment = 0;
+
+        // changePage listener
+        this.getSupportFragmentManager().setFragmentResultListener(
+                "CHANGE_PAGE", this, new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        int page = result.getInt("page");
+                        changePage(page);
+                    }
+                }
+        );
 
 
     }

@@ -1,18 +1,18 @@
 <component name="libraryTable">
   <library name="Gradle: com.android.support:appcompat-v7:23.2.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/res" />
+      <root url="file://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/5c6698d152d73cad9536d28afad9fe67/transformed/appcompat-v7-23.2.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/23.2.0/b5b63d5c3ed09537b14bff461dbe01c847ecd033/appcompat-v7-23.2.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/modules-2/files-2.1/com.android.support/appcompat-v7/23.2.0/b5b63d5c3ed09537b14bff461dbe01c847ecd033/appcompat-v7-23.2.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/appcompat-v7/23.2.0/d48427679eaca5a4133235bde6da0cd7541f7ca0/appcompat-v7-23.2.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/modules-2/files-2.1/com.android.support/appcompat-v7/23.2.0/d48427679eaca5a4133235bde6da0cd7541f7ca0/appcompat-v7-23.2.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
