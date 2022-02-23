@@ -17,6 +17,7 @@ public class ProductAdapter extends BaseAdapter {
     private FragmentManager fm;
     private ProductListItemBinding binding;
     private ArrayList<Product> products;
+    //
 
     public ProductAdapter (Activity activity, FragmentManager fm) {
         this.activity = activity;
