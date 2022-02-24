@@ -18,12 +18,6 @@ public class ProductPresenter {
         this.products.addAll(newProduct);
         this.ui.loadProducts(this.products);
     }
-
-    public void addProducts (ArrayList<Product> newProduct) {
-        this.products.addAll(newProduct);
-        this.ui.addProducts(newProduct);
-    }
-
     public void searchProducts (String search) {
         ArrayList<Product> tempProduct = new ArrayList<>();
         int size = this.products.size();
