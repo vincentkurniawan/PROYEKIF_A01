@@ -65,9 +65,8 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter.add("MOBILE");
-        adapter.add("APP");
+        adapter.add("TABLET");
         adapter.add("CATEGORY");
-
         spin.setAdapter(adapter);
         spin.setSelection(adapter.getCount()); //display hint
         spin.setAdapter(adapter);

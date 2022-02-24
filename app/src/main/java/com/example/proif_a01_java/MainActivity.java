@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 
 import com.example.proif_a01_java.View.ProductListFragment;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         this.productListFragment = ProductListFragment.newInstance();
 
         this.fragments=new Fragment[100000];
+
+
+
         this.fragments[0] = this.productListFragment;
 
         FragmentTransaction ft = this.fm.beginTransaction();
