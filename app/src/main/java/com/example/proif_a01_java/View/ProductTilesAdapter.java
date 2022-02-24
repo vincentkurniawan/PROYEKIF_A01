@@ -1,6 +1,7 @@
 package com.example.proif_a01_java.View;
 
 import android.app.Activity;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,23 +9,29 @@ import android.widget.BaseAdapter;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.proif_a01_java.Model.Product;
-import com.example.proif_a01_java.databinding.ProductListItemBinding;
+import com.example.proif_a01_java.databinding.ProductTilesItemBinding;
+
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends BaseAdapter {
+public class ProductTilesAdapter extends BaseAdapter {
     private Activity activity;
     private FragmentManager fm;
-    private ProductListItemBinding binding;
+    private ProductTilesItemBinding binding;
     private ArrayList<Product> products;
 
-    public ProductAdapter (Activity activity, FragmentManager fm) {
+    public ProductTilesAdapter(Activity activity, FragmentManager fm) {
         this.activity = activity;
         this.fm = fm;
         this.products = new ArrayList<>();
     }
 
-    public void update (ArrayList<Product> products) {
+    public void loadData (ArrayList<Product> products) {
+        this.products = products;
+        this.notifyDataSetChanged();
+    }
+
+    public void addProducts (ArrayList<Product> products) {
         this.products.addAll(products);
         this.notifyDataSetChanged();
     }
@@ -35,32 +42,33 @@ public class ProductAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Product getItem(int i) {
         return this.products.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Product currProduct = (Product) this.getItem(i);
+        Product currProduct =  this.getItem(i);
         if (view == null) {
-            this.binding = ProductListItemBinding.inflate(this.activity.getLayoutInflater());
+            this.binding = ProductTilesItemBinding.inflate(this.activity.getLayoutInflater());
             view = this.binding.getRoot();
             view.setTag(this.binding);
         }else{
-            this.binding = (ProductListItemBinding) view.getTag();
+            this.binding = (ProductTilesItemBinding) view.getTag();
         }
 
-        // SET TEXT
-        this.binding.productName.setText(currProduct.name);
+        // SET TEXT and PHOTO
+        this.binding.name.setText(currProduct.name);
         this.binding.category.setText(currProduct.category);
         this.binding.condition.setText(currProduct.condition);
-        this.binding.price.setText(Integer.toString(currProduct.price));
+        this.binding.price.setText("$ "+currProduct.price);
+        this.binding.ivProducts.setImageResource(this.activity.getResources().getIdentifier(currProduct.photo,"drawable", activity.getPackageName()));
 
-        return view;
+        return binding.getRoot();
     }
 }
