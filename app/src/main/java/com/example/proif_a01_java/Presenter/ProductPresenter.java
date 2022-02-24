@@ -1,26 +1,50 @@
 package com.example.proif_a01_java.Presenter;
-
 import com.example.proif_a01_java.Model.Product;
+import com.example.proif_a01_java.View.IProducts;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProductPresenter {
     private ArrayList<Product> products;
-    public ProductPresenter(){
-        this.products=new ArrayList<>();
-        this.products.add(new Product("Iphone 12","Mobile",10000,1,"@drawable/iphone11"));
-        this.products.add(new Product("Iphone 13","Mobile",15000,1,"@drawable/iphone11"));
-        this.products.add(new Product("Iphone 13 Pro","Mobile",20000,1,"@drawable/iphone11"));
-        this.products.add(new Product("Iphone 13 Pro Max","Mobile",25000,1,"@drawable/iphone11"));
-        this.products.add(new Product("Iphone 14","Mobile",30000,1,"@drawable/iphone11"));
+    private IProducts ui;
+
+    public ProductPresenter(IProducts ui){
+        this.ui = (IProducts) ui;
+        this.products = new ArrayList<>();
     }
 
-    public ArrayList<Product> getProducts(){
-        return this.products;
+    public void loadProducts (ArrayList<Product> newProduct) {
+        this.products.addAll(newProduct);
+        this.ui.loadProducts(this.products);
     }
 
+    public void addProducts (ArrayList<Product> newProduct) {
+        this.products.addAll(newProduct);
+        this.ui.addProducts(newProduct);
+    }
 
+    public void searchProducts (String search) {
+        ArrayList<Product> tempProduct = new ArrayList<>();
+        int size = this.products.size();
+        for (int i=0; i<size; i++) {
+            if (this.products.get(i).name.toLowerCase().contains(search.toLowerCase())) {
+                tempProduct.add(this.products.get(i));
+            }
+        }
+        this.ui.loadProducts(tempProduct);
+    }
 
+    public void sortProductBasedName () {
 
+    }
+
+    public void sortProductBasedCondition () {
+
+    }
+
+    public void sortProductBasedPrice () {
+
+    }
 
 }

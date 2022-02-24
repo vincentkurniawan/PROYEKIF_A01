@@ -8,10 +8,11 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
-
-import com.example.proif_a01_java.View.ProductListFragment;
+import com.example.proif_a01_java.Model.Inventory;
+import com.example.proif_a01_java.Model.Page;
+import com.example.proif_a01_java.View.ProductListFragments;
+import com.example.proif_a01_java.View.ProductTilesFragments;
 import com.example.proif_a01_java.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private Fragment fragments[];
-    private ProductListFragment productListFragment;
+    private ProductListFragments productListFragments;
+    private ProductTilesFragments productTilesFragments;
+    private Inventory inv;
+
     private int currentFragment = 1000;
-    private final static int backPointer [] = {-100, 0};
+    private final static int backPointer [] = {Page.PAGE_EXIT, Page.PAGE_LIST_MODE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +34,21 @@ public class MainActivity extends AppCompatActivity {
         this.binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(this.binding.getRoot());
 
+        // Make new inventory
+        this.inv = new Inventory();
+
         // inisiasi fragment
         this.fm = this.getSupportFragmentManager();
-        this.productListFragment = ProductListFragment.newInstance();
+        this.productListFragments = ProductListFragments.newInstance(this.inv);
+        this.productTilesFragments = ProductTilesFragments.newInstance(this.inv);
 
-        this.fragments=new Fragment[100000];
+        this.fragments = new Fragment[4];
 
-
-
-        this.fragments[0] = this.productListFragment;
+        this.fragments[0] = this.productListFragments;
+        this.fragments[1] = this.productTilesFragments;
 
         FragmentTransaction ft = this.fm.beginTransaction();
-        ft.add(R.id.fragment_container, this.productListFragment).addToBackStack(null).commit();
+        ft.add(R.id.fragment_container, this.productListFragments).addToBackStack(null).commit();
         this.currentFragment = 0;
 
         // changePage listener
@@ -54,12 +61,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
     }
 
     private int changePage (int page) {
-        if (page == -100) {
+        if (page == Page.PAGE_EXIT) {
             this.closeApplication();
             return -1;
         }
