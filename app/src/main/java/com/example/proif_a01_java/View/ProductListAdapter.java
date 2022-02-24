@@ -15,20 +15,20 @@ import com.example.proif_a01_java.databinding.ProductListItemBinding;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends BaseAdapter {
+public class ProductListAdapter extends BaseAdapter {
     private Activity activity;
     private FragmentManager fm;
     private ProductListItemBinding binding;
     private ArrayList<Product> products;
 
-    public ProductAdapter (Activity activity, FragmentManager fm, ArrayList<Product> products) {
+    public ProductListAdapter(Activity activity, FragmentManager fm) {
         this.activity = activity;
         this.fm = fm;
-        this.products=products;
+        this.products = new ArrayList<>();
     }
 
-    public void update (ArrayList<Product> products) {
-        this.products.addAll(products);
+    public void loadData (ArrayList<Product> products) {
+        this.products = products;
         this.notifyDataSetChanged();
     }
 
@@ -61,8 +61,8 @@ public class ProductAdapter extends BaseAdapter {
         // SET TEXT
         this.binding.productName.setText(currProduct.name);
         this.binding.category.setText(currProduct.category);
-        this.binding.condition.setText(currProduct.condition+"");
-        this.binding.price.setText(Integer.toString(currProduct.price));
+        this.binding.condition.setText(currProduct.condition);
+        this.binding.price.setText("$ " + currProduct.price);
 
         return binding.getRoot();
     }
