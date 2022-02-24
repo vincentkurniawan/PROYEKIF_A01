@@ -31,11 +31,6 @@ public class ProductTilesAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void addProducts (ArrayList<Product> products) {
-        this.products.addAll(products);
-        this.notifyDataSetChanged();
-    }
-
     @Override
     public int getCount() {
         return this.products.size();

@@ -32,12 +32,6 @@ public class ProductListAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void addProducts (ArrayList <Product> newProducts) {
-        int size = newProducts.size();
-        this.products.addAll(newProducts);
-        this.notifyDataSetChanged();
-    }
-
     @Override
     public int getCount() {
         return this.products.size();

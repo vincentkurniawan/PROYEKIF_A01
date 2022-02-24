@@ -109,7 +109,7 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
                 System.out.println(i);
                 products.add(this.inv.products[i]);
             }
-            this.presenter.addProducts(products);
+            this.presenter.loadProducts(products);
             this.loadNumber = max;
             this.availLoads -= 5;
         }
@@ -118,11 +118,6 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
     @Override
     public void loadProducts(ArrayList<Product> products) {
         this.adapter.loadData(products);
-    }
-
-    @Override
-    public void addProducts(ArrayList<Product> products) {
-        this.adapter.addProducts(products);
     }
 
     @Override
