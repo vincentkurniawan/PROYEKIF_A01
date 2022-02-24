@@ -18,6 +18,7 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
 
     private FragmentProductListBinding binding;
     private FragmentManager fm;
+    private ProductAdapter adapter;
 
     public ProductListFragment() {}
 
@@ -30,6 +31,13 @@ public class ProductListFragment extends Fragment implements View.OnClickListene
         this.fm = getParentFragmentManager();
         this.binding = FragmentProductListBinding.inflate(inflater,container,false);
         View view = this.binding.getRoot();
+
+        // inisiasi
+        this.adapter = new ProductAdapter(getActivity(), this.fm);
+        this.binding.lvProducts.setAdapter(this.adapter);
+
+        // add products via presenter
+
 
         // spinner settings
         Spinner spin = this.binding.categorySpinner;
