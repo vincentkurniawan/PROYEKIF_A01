@@ -1,5 +1,6 @@
 package com.example.proif_a01_java;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 
 import com.example.proif_a01_java.View.ProductListFragment;
 import com.example.proif_a01_java.databinding.ActivityMainBinding;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         // inisiasi fragment
         this.fm = this.getSupportFragmentManager();
         this.productListFragment = ProductListFragment.newInstance();
+
+        this.fragments=new Fragment[100000];
+
 
 
         this.fragments[0] = this.productListFragment;

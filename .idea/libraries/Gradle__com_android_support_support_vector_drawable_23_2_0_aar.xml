@@ -1,15 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: com.android.support:support-vector-drawable:23.2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/res" />
+      <root url="file://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/transforms-3/495afe2c5d3934cbe43ea00b10a1a90f/transformed/support-vector-drawable-23.2.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-vector-drawable/23.2.0/92037480f9cb0826ef4539455a4a91cf09c31e64/support-vector-drawable-23.2.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/modules-2/files-2.1/com.android.support/support-vector-drawable/23.2.0/92037480f9cb0826ef4539455a4a91cf09c31e64/support-vector-drawable-23.2.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-vector-drawable/23.2.0/ca23f3f285c146b6c352ae4495420528e8e7175b/support-vector-drawable-23.2.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../travel_p3b/app/caches/modules-2/files-2.1/com.android.support/support-vector-drawable/23.2.0/ca23f3f285c146b6c352ae4495420528e8e7175b/support-vector-drawable-23.2.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
