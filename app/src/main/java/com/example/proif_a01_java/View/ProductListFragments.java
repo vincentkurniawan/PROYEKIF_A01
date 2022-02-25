@@ -73,6 +73,7 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
         // set onclick listener
         this.binding.ivTiles.setOnClickListener(this::onClick);
         this.binding.productName.setOnClickListener(this::onClick);
+        this.binding.price.setOnClickListener(this);
         this.binding.category.setOnClickListener(this::onClick);
         this.binding.condition.setOnClickListener(this::onClick);
         this.binding.showMore.setOnClickListener(this::onClick);
