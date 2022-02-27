@@ -16,7 +16,7 @@ import com.example.proif_a01_java.databinding.ProductListItemBinding;
 
 import java.util.ArrayList;
 
-public class ProductListAdapter extends BaseAdapter {
+public class ProductListAdapter extends BaseAdapter  {
     private Activity activity;
     private FragmentManager fm;
     private ProductListItemBinding binding;
@@ -76,4 +76,6 @@ public class ProductListAdapter extends BaseAdapter {
 
         return binding.getRoot();
     }
+
+
 }

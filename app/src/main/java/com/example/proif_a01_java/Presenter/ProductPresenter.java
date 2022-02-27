@@ -35,42 +35,37 @@ public class ProductPresenter {
 
     public void sortProductBasedName () {
         if(this.sortCode==1) {
-            ArrayList<Product> sortedProducts = new ArrayList<>();
-            sortedProducts.addAll(this.products);
-            Collections.sort(sortedProducts, new Comparator<Product>() {
+            Collections.sort(this.products, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return product.name.compareTo(t1.name);
                 }
             });
             this.sortCode=0;
-            this.ui.loadProducts(sortedProducts);
+            this.ui.loadProducts(this.products);
         }else{
-            ArrayList<Product> sortedProducts = new ArrayList<>();
-            sortedProducts.addAll(this.products);
-            Collections.sort(sortedProducts, new Comparator<Product>() {
+
+            Collections.sort(this.products, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return t1.name.compareTo(product.name);
                 }
             });
             this.sortCode=1;
-            this.ui.loadProducts(sortedProducts);
+            this.ui.loadProducts(this.products);
         }
     }
 
     public void sortProductBasedCondition () {
         if (this.sortCode==2) {
-            ArrayList<Product> sortedProducts = new ArrayList<>();
-            sortedProducts.addAll(this.products);
-            Collections.sort(sortedProducts, new Comparator<Product>() {
+            Collections.sort(this.products, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return product.condition.compareTo(t1.condition);
                 }
             });
             this.sortCode=0;
-            this.ui.loadProducts(sortedProducts);
+            this.ui.loadProducts(this.products);
         }else{
             ArrayList<Product> sortedProducts = new ArrayList<>();
             sortedProducts.addAll(this.products);
@@ -87,27 +82,23 @@ public class ProductPresenter {
 
     public void sortProductBasedPrice () {
         if(this.sortCode==3) {
-            ArrayList<Product> sortedProducts = new ArrayList<>();
-            sortedProducts.addAll(this.products);
-            Collections.sort(sortedProducts, new Comparator<Product>() {
+            Collections.sort(this.products, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return Integer.compare(product.price, t1.price);
                 }
             });
             this.sortCode=0;
-            this.ui.loadProducts(sortedProducts);
+            this.ui.loadProducts(this.products);
         }else{
-            ArrayList<Product> sortedProducts = new ArrayList<>();
-            sortedProducts.addAll(this.products);
-            Collections.sort(sortedProducts, new Comparator<Product>() {
+            Collections.sort(this.products, new Comparator<Product>() {
                 @Override
                 public int compare(Product product, Product t1) {
                     return Integer.compare(t1.price, product.price);
                 }
             });
             this.sortCode=3;
-            this.ui.loadProducts(sortedProducts);
+            this.ui.loadProducts(this.products);
         }
     }
 
