@@ -1,17 +1,23 @@
 package com.example.proif_a01_java.Presenter;
+import android.util.Log;
+
 import com.example.proif_a01_java.Model.Product;
 import com.example.proif_a01_java.View.IProducts;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class ProductPresenter {
     private ArrayList<Product> products;
     private IProducts ui;
+    private int sortCode; // 1 for name 2 for price 3 for condition
 
     public ProductPresenter(IProducts ui){
         this.ui = (IProducts) ui;
         this.products = new ArrayList<>();
+        this.sortCode=0;
     }
 
     public void loadProducts (ArrayList<Product> newProduct) {
@@ -30,15 +36,81 @@ public class ProductPresenter {
     }
 
     public void sortProductBasedName () {
-
+        if(this.sortCode==1) {
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return product.name.compareTo(t1.name);
+                }
+            });
+            this.sortCode=0;
+            this.ui.loadProducts(sortedProducts);
+        }else{
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return t1.name.compareTo(product.name);
+                }
+            });
+            this.sortCode=1;
+            this.ui.loadProducts(sortedProducts);
+        }
     }
 
     public void sortProductBasedCondition () {
-
+        if (this.sortCode==2) {
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return product.condition.compareTo(t1.condition);
+                }
+            });
+            this.sortCode=0;
+            this.ui.loadProducts(sortedProducts);
+        }else{
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return t1.condition.compareTo(product.condition);
+                }
+            });
+            this.sortCode=2;
+            this.ui.loadProducts(sortedProducts);
+        }
     }
 
     public void sortProductBasedPrice () {
-
+        if(this.sortCode==3) {
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return Integer.compare(product.price, t1.price);
+                }
+            });
+            this.sortCode=0;
+            this.ui.loadProducts(sortedProducts);
+        }else{
+            ArrayList<Product> sortedProducts = new ArrayList<>();
+            sortedProducts.addAll(this.products);
+            Collections.sort(sortedProducts, new Comparator<Product>() {
+                @Override
+                public int compare(Product product, Product t1) {
+                    return Integer.compare(t1.price, product.price);
+                }
+            });
+            this.sortCode=3;
+            this.ui.loadProducts(sortedProducts);
+        }
     }
 
 }
