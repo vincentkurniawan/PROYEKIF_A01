@@ -6,6 +6,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -14,11 +17,12 @@ import com.example.proif_a01_java.Model.Inventory;
 import com.example.proif_a01_java.Model.Page;
 import com.example.proif_a01_java.Model.Product;
 import com.example.proif_a01_java.Presenter.ProductPresenter;
+import com.example.proif_a01_java.R;
 import com.example.proif_a01_java.databinding.FragmentProductListBinding;
 
 import java.util.ArrayList;
 
-public class ProductListFragments extends Fragment implements IProducts, View.OnClickListener {
+public class ProductListFragments extends Fragment implements IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
     public Inventory inv;
     private FragmentProductListBinding binding;
     private FragmentManager fragmentManager;
@@ -69,6 +73,14 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
                 presenter.searchProducts(search);
             }
         });
+
+        // spinner
+        Spinner ctSpinner = (Spinner) this.binding.categorySpinner;
+        String [] arr = {"MOBILE", "TABLET"};
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.category_spinner_item, arr);
+        adapter.setDropDownViewResource(R.layout.category_spinner_item);
+        ctSpinner.setAdapter(adapter);
+        ctSpinner.setOnItemSelectedListener(this);
 
         // set onclick listener
         this.binding.ivTiles.setOnClickListener(this::onClick);
@@ -150,5 +162,15 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
         Bundle result = new Bundle();
         result.putInt("page", page);
         this.fragmentManager.setFragmentResult("CHANGE_PAGE", result);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
