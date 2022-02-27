@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.proif_a01_java.Model.Product;
+import com.example.proif_a01_java.Presenter.ProductPresenter;
 import com.example.proif_a01_java.databinding.ProductListItemBinding;
 
 
@@ -20,15 +21,18 @@ public class ProductListAdapter extends BaseAdapter {
     private FragmentManager fm;
     private ProductListItemBinding binding;
     private ArrayList<Product> products;
+    private ProductPresenter presenter;
 
-    public ProductListAdapter(Activity activity, FragmentManager fm) {
+    public ProductListAdapter(Activity activity, FragmentManager fm, ProductPresenter presenter) {
         this.activity = activity;
         this.fm = fm;
         this.products = new ArrayList<>();
+        this.presenter = presenter;
     }
 
     public void loadData (ArrayList<Product> products) {
-        this.products = products;
+        this.products = new ArrayList<>();
+        this.products.addAll(products);
         this.notifyDataSetChanged();
     }
 
@@ -63,6 +67,12 @@ public class ProductListAdapter extends BaseAdapter {
         this.binding.category.setText(currProduct.category);
         this.binding.condition.setText(currProduct.condition);
         this.binding.price.setText("$ " + currProduct.price);
+        this.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.moveToDetails(currProduct);
+            }
+        });
 
         return binding.getRoot();
     }
