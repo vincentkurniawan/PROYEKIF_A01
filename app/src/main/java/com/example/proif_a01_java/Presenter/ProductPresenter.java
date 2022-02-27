@@ -1,5 +1,4 @@
 package com.example.proif_a01_java.Presenter;
-import android.util.Log;
 
 import com.example.proif_a01_java.Model.Product;
 import com.example.proif_a01_java.View.IProducts;
@@ -7,7 +6,6 @@ import com.example.proif_a01_java.View.IProducts;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 public class ProductPresenter {
     private ArrayList<Product> products;
@@ -111,6 +109,38 @@ public class ProductPresenter {
             this.sortCode=3;
             this.ui.loadProducts(sortedProducts);
         }
+    }
+
+    public void changeCategory (int category) {
+        switch (category){
+            case Product.CATEGORY_MOBILE:
+                ArrayList<Product> mobileProduct = new ArrayList<>();
+                int size = this.products.size();
+                for (int i=0; i<size; i++) {
+                    if (this.products.get(i).rawCategory == Product.CATEGORY_MOBILE) {
+                        mobileProduct.add(this.products.get(i));
+                    }
+                }
+                this.ui.loadProducts(mobileProduct);
+                break;
+            case Product.CATEGORY_TABLET:
+                ArrayList<Product> tabletProduct = new ArrayList<>();
+                size = this.products.size();
+                for (int i=0; i<size; i++) {
+                    if (this.products.get(i).rawCategory == Product.CATEGORY_TABLET) {
+                        tabletProduct.add(this.products.get(i));
+                    }
+                }
+                this.ui.loadProducts(tabletProduct);
+                break;
+            default:
+                this.ui.loadProducts(this.products);
+                break;
+        }
+    }
+
+    public void moveToDetails (Product product) {
+        this.ui.moveToDetails(product);
     }
 
 }

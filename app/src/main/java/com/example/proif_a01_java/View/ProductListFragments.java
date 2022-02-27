@@ -20,6 +20,8 @@ import com.example.proif_a01_java.Presenter.ProductPresenter;
 import com.example.proif_a01_java.R;
 import com.example.proif_a01_java.databinding.FragmentProductListBinding;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 public class ProductListFragments extends Fragment implements IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -50,7 +52,7 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
 
         // inisiasi
         this.presenter = new ProductPresenter(this);
-        this.adapter = new ProductListAdapter(getActivity(), this.fragmentManager);
+        this.adapter = new ProductListAdapter(getActivity(), this.fragmentManager, this.presenter);
 
         // set adapter
         this.binding.lvProducts.setAdapter(this.adapter);
@@ -76,7 +78,7 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
 
         // spinner
         Spinner ctSpinner = (Spinner) this.binding.categorySpinner;
-        String [] arr = {"MOBILE", "TABLET"};
+        String [] arr = {"MOBILE", "TABLET", "ALL"};
         ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.category_spinner_item, arr);
         adapter.setDropDownViewResource(R.layout.category_spinner_item);
         ctSpinner.setAdapter(adapter);
@@ -128,10 +130,16 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
         }
     }
 
-
     @Override
     public void loadProducts(ArrayList<Product> products) {
         this.adapter.loadData(products);
+    }
+
+    @Override
+    public void moveToDetails(Product product) {
+        Bundle result = new Bundle();
+        result.putParcelable("products", Parcels.wrap(product));
+        this.fragmentManager.setFragmentResult("MOVE_DETAILS", result);
     }
 
     @Override
@@ -167,7 +175,7 @@ public class ProductListFragments extends Fragment implements IProducts, View.On
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+        this.presenter.changeCategory(i);
     }
 
     @Override

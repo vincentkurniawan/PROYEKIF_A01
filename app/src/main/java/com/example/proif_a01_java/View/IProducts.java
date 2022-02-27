@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IProducts {
     void loadProducts (ArrayList<Product> products);
+    void moveToDetails (Product product);
 }

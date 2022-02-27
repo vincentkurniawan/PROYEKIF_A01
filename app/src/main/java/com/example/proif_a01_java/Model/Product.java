@@ -1,13 +1,14 @@
 package com.example.proif_a01_java.Model;
+import org.parceler.Parcel;
 
-import android.graphics.drawable.Drawable;
-
+@Parcel
 public class Product {
     public String name;
     public String category;
     public int price;
     public String condition;
     public String photo;
+    public int rawCategory;
 
     public final static int CONDITION_NEW = 0;
     public final static int CONDITION_90 = 1;
@@ -15,6 +16,10 @@ public class Product {
 
     public final static int CATEGORY_MOBILE = 0;
     public final static int CATEGORY_TABLET = 1;
+
+    public Product () {
+
+    }
 
     public Product(String name, int category, int price, int condition) {
         this.name = name;
@@ -41,6 +46,7 @@ public class Product {
     }
 
     private void formatCategory (int category) {
+        this.rawCategory = category;
         switch (category){
             case 0:
                 this.category = "MOBILE";

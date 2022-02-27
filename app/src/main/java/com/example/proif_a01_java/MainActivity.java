@@ -70,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // SET ANIMASI KETIKA GESER, PENCET, DLL
-        this.ft = this.fm.beginTransaction().setCustomAnimations(
-                R.anim.slide_in,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.slide_out
-        );
+//        this.ft = this.fm.beginTransaction().setCustomAnimations(
+//                R.anim.slide_in,
+//                R.anim.fade_out,
+//                R.anim.fade_in,
+//                R.anim.slide_out
+//        );
+
+        this.ft = this.fm.beginTransaction();
 
         if (this.currentFragment != 1000) {
             this.ft.hide(this.fragments[this.currentFragment]);
