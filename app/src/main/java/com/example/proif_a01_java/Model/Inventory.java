@@ -5,21 +5,21 @@ public class Inventory {
 
     public Inventory () {
         products[0] = new Product("IPHONE 1", Product.CATEGORY_MOBILE, 100, Product.CONDITION_NEW);
-        products[1] = new Product("IPAD 2", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
-        products[2] = new Product("IPAD 3", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
+        products[1] = new Product("IPAD 2", Product.CATEGORY_TABLET, 1500, Product.CONDITION_NEW);
+        products[2] = new Product("IPAD 3", Product.CATEGORY_TABLET, 1500, Product.CONDITION_NEW);
         products[3] = new Product("IPHONE 4", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[4] = new Product("IPHONE 5", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[5] = new Product("IPHONE 6", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[6] = new Product("IPHONE 7", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[7] = new Product("IPHONE 8", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
-        products[8] = new Product("IPHONE 9", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
+        products[8] = new Product("Samsung Galaxy S22", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[9] = new Product("IPHONE 10", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[10] = new Product("IPHONE 11", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[11] = new Product("IPHONE 12", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
         products[12] = new Product("IPHONE 13", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
-        products[13] = new Product("IPHONE 14", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
-        products[14] = new Product("IPHONE 15", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
-        products[15] = new Product("IPHONE 16", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
+        products[13] = new Product("IPHONE SE 2020", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
+        products[14] = new Product("HUAWEI P50 PRO", Product.CATEGORY_MOBILE, 1500, Product.CONDITION_NEW);
+        products[15] = new Product("IPAD 4", Product.CATEGORY_TABLET, 1500, Product.CONDITION_NEW);
         products[16] = new Product("XIAOMI MI PAD 5 PRO", Product.CATEGORY_TABLET,1000,Product.CONDITION_90);
         products[17] = new Product("XIAOMI POCO M3",Product.CATEGORY_MOBILE,100,Product.CONDITION_NEW);
         products[18] = new Product("XIAOMI MI PAD 4",Product.CATEGORY_TABLET,500,Product.CONDITION_NEW);
