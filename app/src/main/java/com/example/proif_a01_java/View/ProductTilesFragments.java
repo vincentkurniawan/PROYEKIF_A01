@@ -78,7 +78,7 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
 
         // spinner
         Spinner ctSpinner = (Spinner) this.binding.categorySpinner;
-        String [] arr = {"MOBILE", "TABLET", "ALL"};
+        String [] arr = {"ALL","MOBILE", "TABLET"};
         ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.category_spinner_item, arr);
         adapter.setDropDownViewResource(R.layout.category_spinner_item);
         ctSpinner.setAdapter(adapter);
@@ -162,6 +162,7 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(i==0) i=-1; //karena kategori tidak terdapat kategori "all" maka diset -1
         this.presenter.changeCategory(i);
     }
 
