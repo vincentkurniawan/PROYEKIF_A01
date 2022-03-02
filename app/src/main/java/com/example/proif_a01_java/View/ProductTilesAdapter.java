@@ -8,8 +8,11 @@ import android.widget.BaseAdapter;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.proif_a01_java.Model.Product;
 import com.example.proif_a01_java.Presenter.ProductPresenter;
+import com.example.proif_a01_java.R;
 import com.example.proif_a01_java.databinding.ProductTilesItemBinding;
 
 
@@ -65,7 +68,14 @@ public class ProductTilesAdapter extends BaseAdapter {
         this.binding.category.setText(currProduct.category);
         this.binding.condition.setText(currProduct.condition);
         this.binding.price.setText("$ "+currProduct.price);
-        this.binding.ivProducts.setImageResource(this.activity.getResources().getIdentifier(currProduct.photo,"drawable", activity.getPackageName()));
+
+        //IMPLEMENTASI GLIDE LIBRARY
+        Glide.with(this.activity)
+                .load(this.activity.getResources().getIdentifier(currProduct.photo,"drawable", activity.getPackageName()))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.progress_bar)
+                .into(this.binding.ivProducts);
+
         this.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -139,6 +139,8 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
         Bundle result = new Bundle();
         result.putParcelable("products", Parcels.wrap(product));
         this.fragmentManager.setFragmentResult("MOVE_DETAILS", result);
+
+        this.changePage(Page.PAGE_DETAILS_MODE);
     }
 
     @Override
@@ -162,8 +164,7 @@ public class ProductTilesFragments extends Fragment implements IProducts, View.O
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(i==0) i=-1; //karena kategori tidak terdapat kategori "all" maka diset -1
-        this.presenter.changeCategory(i);
+        this.presenter.changeCategory(i-1);
     }
 
     @Override
