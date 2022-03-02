@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.example.proif_a01_java.Model.Inventory;
 import com.example.proif_a01_java.Model.Page;
+import com.example.proif_a01_java.View.ProductDetailsFragments;
 import com.example.proif_a01_java.View.ProductListFragments;
 import com.example.proif_a01_java.View.ProductTilesFragments;
 import com.example.proif_a01_java.databinding.ActivityMainBinding;
@@ -23,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private Fragment fragments[];
     private ProductListFragments productListFragments;
     private ProductTilesFragments productTilesFragments;
+    private ProductDetailsFragments productDetailsFragments;
     private Inventory inv;
 
     private int currentFragment = 1000;
-    private final static int backPointer [] = {Page.PAGE_EXIT, Page.PAGE_LIST_MODE};
+    private final static int backPointer [] = {Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
         this.fm = this.getSupportFragmentManager();
         this.productListFragments = ProductListFragments.newInstance(this.inv);
         this.productTilesFragments = ProductTilesFragments.newInstance(this.inv);
+        this.productDetailsFragments = ProductDetailsFragments.newInstance();
 
-        this.fragments = new Fragment[4];
+        this.fragments = new Fragment[3];
 
         this.fragments[0] = this.productListFragments;
         this.fragments[1] = this.productTilesFragments;
+        this.fragments[2] = this.productDetailsFragments;
 
         FragmentTransaction ft = this.fm.beginTransaction();
         ft.add(R.id.fragment_container, this.productListFragments).addToBackStack(null).commit();

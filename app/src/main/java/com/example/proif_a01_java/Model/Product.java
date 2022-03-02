@@ -9,6 +9,7 @@ public class Product {
     public String condition;
     public String photo;
     public int rawCategory;
+    public String description;
 
     public final static int CONDITION_NEW = 0;
     public final static int CONDITION_90 = 1;
@@ -21,12 +22,13 @@ public class Product {
 
     }
 
-    public Product(String name, int category, int price, int condition) {
+    public Product(String name, int category, int price, int condition, String description) {
         this.name = name;
         this.price = price;
         this.formatCategory(category);
         this.formatCondition(condition);
         this.setPhoto(name);
+        this.description = description;
     }
 
     private void formatCondition (int condition) {
@@ -140,8 +142,6 @@ public class Product {
             case "XIAOMI POCO F3 GT":
                 this.photo = "@drawable/pocof3gt";
                 break;
-
-
             case "SAMSUNG GALAXY TAB S7":
                 this.photo = "@drawable/samsungtabs7";
                 break;
@@ -157,11 +157,6 @@ public class Product {
             case "SAMSUNG GALAXY S10":
                 this.photo = "@drawable/samsungs10";
                 break;
-
-
-
-
-
             default:
                 this.photo = "";
         }
