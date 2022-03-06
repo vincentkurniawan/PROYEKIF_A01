@@ -71,7 +71,7 @@ public class ProductTilesAdapter extends BaseAdapter {
 
         //IMPLEMENTASI GLIDE LIBRARY
         Glide.with(this.activity)
-                .load(this.activity.getResources().getIdentifier(currProduct.photo,"drawable", activity.getPackageName()))
+                .load(this.activity.getResources().getIdentifier(currProduct.photo.get(0),"drawable", activity.getPackageName()))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(R.drawable.progress_bar)
                 .into(this.binding.ivProducts);
