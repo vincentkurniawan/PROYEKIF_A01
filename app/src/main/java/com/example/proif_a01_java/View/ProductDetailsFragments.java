@@ -1,20 +1,13 @@
 package com.example.proif_a01_java.View;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.helper.widget.Carousel;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -28,11 +21,12 @@ import com.example.proif_a01_java.databinding.FragmentProductDetailsBinding;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-
-public class ProductDetailsFragments extends Fragment implements View.OnClickListener{
+public class ProductDetailsFragments extends Fragment implements View.OnClickListener, View.OnTouchListener{
     private FragmentProductDetailsBinding binding;
     private FragmentManager fragmentManager;
+    private float x1 = 0, x2 = 0;
+    private int curPic = 0;
+    private Product curProduct;
 
     // constructor kosong
     public ProductDetailsFragments () {
@@ -65,6 +59,8 @@ public class ProductDetailsFragments extends Fragment implements View.OnClickLis
         this.binding.btnAdd.setOnClickListener(this::onClick);
         this.binding.ivBack.setOnClickListener(this::onClick);
 
+        this.binding.ivPics.setOnTouchListener(this::onTouch);
+
         return this.binding.getRoot();
     }
 
@@ -76,44 +72,15 @@ public class ProductDetailsFragments extends Fragment implements View.OnClickLis
         this.binding.tvPrice.setText(product.price + "");
         this.binding.tvDesc.setText(product.description);
 
+        this.curProduct = product;
+
         // sementara belum carousel, !PERLU DIUBAH JADI BENTUK CAROUSEL!
         //IMPLEMENTASI GLIDE LIBRARY
-//        Glide.with(getActivity())
-//                .load(getActivity().getResources().getIdentifier(product.photo,"drawable", getActivity().getPackageName()))
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .placeholder(R.drawable.progress_bar)
-//                .into(this.binding.ivPics);
-
-        int numOfPhotos=product.photo.size();
-        int image[]=new int[numOfPhotos];
-        for(int i=0;i<numOfPhotos;i++){
-            image[i]=getResources().getIdentifier(product.photo.get(i),"drawable", getActivity().getPackageName());
-        }
-        this.binding.ivPics0.setImageResource(image[0]);
-
-
-        this.binding.carousel.setAdapter(new Carousel.Adapter() {
-            @Override
-            public int count() {
-                return image.length;
-            }
-
-            @Override
-            public void populate(View view, int index) {
-                Bitmap bmp=BitmapFactory.decodeResource(getResources(),image[index]);
-                BitmapDrawable bmp2= new BitmapDrawable(getResources(),bmp);
-                view.setBackground(bmp2);
-
-
-            }
-
-            @Override
-            public void onNewItem(int index) {
-
-            }
-        });
-
-
+        Glide.with(getActivity())
+                .load(getActivity().getResources().getIdentifier(product.photo.get(0),"drawable", getActivity().getPackageName()))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.progress_bar)
+                .into(this.binding.ivPics);
     }
 
     @Override
@@ -137,4 +104,45 @@ public class ProductDetailsFragments extends Fragment implements View.OnClickLis
         result.putInt("page", page);
         this.fragmentManager.setFragmentResult("CHANGE_PAGE", result);
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        switch (motionEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = motionEvent.getX();
+                Log.d("DOWN", x1+"");
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = motionEvent.getX();
+                Log.d("UP", x2+"");
+                if (Math.abs(x2-x1) > 150) {
+                    if (x2 > x1) {
+                        // swipe right
+                        this.curPic ++;
+                        if (this.curPic > 2) {
+                            this.curPic = 0;
+                        }
+                    }else{
+                        // swipe left
+                        this.curPic --;
+                        if (this.curPic < 0) {
+                            this.curPic = 2;
+                        }
+                    }
+                    this.slidePic();
+                }
+                break;
+        }
+        return true;
+    }
+
+    private void slidePic () {
+        Glide.with(getActivity())
+                .load(getActivity().getResources().getIdentifier(this.curProduct.photo.get(this.curPic),"drawable", getActivity().getPackageName()))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.progress_bar)
+                .into(this.binding.ivPics);
+    }
+
 }
