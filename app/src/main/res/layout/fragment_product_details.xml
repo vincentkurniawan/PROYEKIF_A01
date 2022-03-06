@@ -7,56 +7,11 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:layoutDescription="@xml/scene">
     <ImageView
-        android:id="@+id/iv_pics0"
+        android:id="@+id/ivPics"
         android:layout_width="200dp"
         android:layout_height="200dp">
     </ImageView>
-        <ImageView
-            android:id="@+id/iv_pics1"
-            android:layout_width="200dp"
-            android:layout_height="200dp">
-        </ImageView>
-        <ImageView
-            android:id="@+id/iv_pics2"
-            android:layout_width="200dp"
-            android:layout_height="200dp">
-        </ImageView>
-
-        <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/kiri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="0dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/kanan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="0dp" />
-
-
-        <androidx.constraintlayout.helper.widget.Carousel
-            android:id="@+id/carousel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:carousel_forwardTransition="@+id/forward"
-            app:carousel_backwardTransition="@+id/backward"
-            app:carousel_previousState="@+id/previous"
-            app:carousel_nextState="@+id/next"
-            app:carousel_infinite="true"
-            app:carousel_firstView="@+id/iv_pics0"
-            app:constraint_referenced_ids="iv_pics0,iv_pics1,iv_pics2" />
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <TextView
         android:id="@+id/tv_name"
@@ -64,6 +19,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/fredoka_one"
         android:text="IPHONE 11"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
@@ -76,6 +32,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/fredoka_one"
         android:text="CATEGORY"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
@@ -88,6 +45,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
         android:text="MOBILE"
+        android:textColor="#6639A6"
         android:textAlignment="center"
         android:textSize="14sp">
 
@@ -99,6 +57,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/fredoka_one"
         android:text="PRICE"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -111,6 +70,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/lato"
         android:text="5000"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content">
 
@@ -122,6 +82,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/fredoka_one"
         android:text="CONDITION"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -134,6 +95,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/lato"
         android:text="NEW"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content">
 
@@ -145,6 +107,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/fredoka_one"
         android:text="DESCRIPTION"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -157,6 +120,7 @@
         android:textAlignment="center"
         android:fontFamily="@font/lato"
         android:text="Oh SO PRO LAAAAAAAAAAAAAAA"
+        android:textColor="#6639A6"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
@@ -194,6 +158,7 @@
         <ImageView
             android:id="@+id/iv_back"
             android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
+            android:backgroundTint="#6639A6"
             android:layout_width="30dp"
             android:layout_height="30dp">
         </ImageView>
