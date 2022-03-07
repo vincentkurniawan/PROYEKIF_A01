@@ -69,7 +69,7 @@ public class ProductDetailsFragments extends Fragment implements View.OnClickLis
         this.binding.tvName.setText(product.name);
         this.binding.tvCategory.setText(product.category);
         this.binding.tvCondition.setText(product.condition);
-        this.binding.tvPrice.setText(product.price + "");
+        this.binding.tvPrice.setText(product.getPrice() + "");
         this.binding.tvDesc.setText(product.description);
 
         this.curProduct = product;
