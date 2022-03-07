@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id("kotlin-parcelize")
+
 }
 
 
@@ -53,7 +54,8 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
-    implementation "androidx.core:core-ktx:+"
+
+    implementation 'androidx.core:core-ktx:1.7.0'
 
 
 }
