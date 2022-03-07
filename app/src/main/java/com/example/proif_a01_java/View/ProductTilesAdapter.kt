@@ -1,88 +1,74 @@
-package com.example.proif_a01_java.View;
+package com.example.proif_a01_java.View
 
-import android.app.Activity;
+import android.app.Activity
+import android.view.View
+import com.example.proif_a01_java.Presenter.ProductPresenter
+import android.widget.BaseAdapter
+import com.example.proif_a01_java.Model.Product
+import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.proif_a01_java.databinding.ProductTilesItemBinding
+import java.util.ArrayList
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-
-import androidx.fragment.app.FragmentManager;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.proif_a01_java.Model.Product;
-import com.example.proif_a01_java.Presenter.ProductPresenter;
-import com.example.proif_a01_java.R;
-import com.example.proif_a01_java.databinding.ProductTilesItemBinding;
-
-
-import java.util.ArrayList;
-
-public class ProductTilesAdapter extends BaseAdapter {
-    private Activity activity;
-    private FragmentManager fm;
-    private ProductTilesItemBinding binding;
-    private ArrayList<Product> products;
-    private ProductPresenter presenter;
-
-    public ProductTilesAdapter(Activity activity, FragmentManager fm, ProductPresenter presenter) {
-        this.activity = activity;
-        this.fm = fm;
-        this.products = new ArrayList<>();
-        this.presenter = presenter;
+class ProductTilesAdapter(private val activity: Activity, presenter: ProductPresenter) :
+    BaseAdapter() {
+    lateinit var binding: ProductTilesItemBinding
+    lateinit var products: ArrayList<Product>
+    lateinit var presenter: ProductPresenter
+    fun loadData(products: ArrayList<Product>) {
+        this.products = products
+        notifyDataSetChanged()
     }
 
-    public void loadData (ArrayList<Product> products) {
-        this.products = products;
-        this.notifyDataSetChanged();
+    override fun getCount(): Int {
+        return products.size
     }
 
-    @Override
-    public int getCount() {
-        return this.products.size();
+    override fun getItem(i: Int): Product {
+        return products[i]
     }
 
-    @Override
-    public Product getItem(int i) {
-        return this.products.get(i);
+    override fun getItemId(i: Int): Long {
+        return i.toLong()
     }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Product currProduct =  this.getItem(i);
+    override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
+        var view: View? = view
+        val currProduct = getItem(i)
         if (view == null) {
-            this.binding = ProductTilesItemBinding.inflate(this.activity.getLayoutInflater());
-            view = this.binding.getRoot();
-            view.setTag(this.binding);
-        }else{
-            this.binding = (ProductTilesItemBinding) view.getTag();
+            binding = ProductTilesItemBinding.inflate(
+                activity.layoutInflater
+            )
+            view = binding.root
+            view.setTag(binding)
+        } else {
+            binding = view.tag as ProductTilesItemBinding
         }
 
         // SET TEXT and PHOTO
-        this.binding.name.setText(currProduct.name);
-        this.binding.category.setText(currProduct.category);
-        this.binding.condition.setText(currProduct.condition);
-        this.binding.price.setText("$ "+currProduct.price);
+        binding.name.text = currProduct.name
+        binding.category.text = currProduct.category
+        binding.condition.text = currProduct.condition
+        binding.price.text = "$ " + currProduct.price
 
         //IMPLEMENTASI GLIDE LIBRARY
-        Glide.with(this.activity)
-                .load(this.activity.getResources().getIdentifier(currProduct.photo.get(0),"drawable", activity.getPackageName()))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .placeholder(R.drawable.progress_bar)
-                .into(this.binding.ivProducts);
+        Glide.with(activity)
+            .load(
+                activity.resources.getIdentifier(
+                    currProduct.photo[0],
+                    "drawable",
+                    activity.packageName
+                )
+            )
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(binding.ivProducts)
+        binding.root.setOnClickListener { presenter.moveToDetails(currProduct) }
+        return binding.root
+    }
 
-        this.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.moveToDetails(currProduct);
-            }
-        });
-
-        return binding.getRoot();
+    init {
+        products = ArrayList()
+        this.presenter = presenter
     }
 }

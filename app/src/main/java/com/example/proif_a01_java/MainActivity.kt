@@ -1,76 +1,66 @@
-package com.example.proif_a01_java;
+package com.example.proif_a01_java
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity
+import com.example.proif_a01_java.View.ProductListFragments
+import com.example.proif_a01_java.View.ProductTilesFragments
+import com.example.proif_a01_java.View.ProductDetailsFragments
+import com.example.proif_a01_java.Model.Inventory
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.proif_a01_java.R
+import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.FragmentTransaction
+import com.example.proif_a01_java.MainActivity
+import com.example.proif_a01_java.Model.Page
+import com.example.proif_a01_java.databinding.ActivityMainBinding
 
-import android.os.Bundle;
-
-import com.example.proif_a01_java.Model.Inventory;
-import com.example.proif_a01_java.Model.Page;
-import com.example.proif_a01_java.View.ProductDetailsFragments;
-import com.example.proif_a01_java.View.ProductListFragments;
-import com.example.proif_a01_java.View.ProductTilesFragments;
-import com.example.proif_a01_java.databinding.ActivityMainBinding;
-
-public class MainActivity extends AppCompatActivity {
-
-    private ActivityMainBinding binding;
-    private FragmentManager fm;
-    private FragmentTransaction ft;
-    private Fragment fragments[];
-    private ProductListFragments productListFragments;
-    private ProductTilesFragments productTilesFragments;
-    private ProductDetailsFragments productDetailsFragments;
-    private Inventory inv;
-
-    private int currentFragment = 1000;
-    private final static int backPointer [] = {Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE};
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(this.binding.getRoot());
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
+    lateinit var fm: FragmentManager
+    lateinit var ft: FragmentTransaction
+    lateinit var fragments: Array<Fragment>
+    lateinit var productListFragments: ProductListFragments
+    lateinit var productTilesFragments: ProductTilesFragments
+    lateinit var productDetailsFragments: ProductDetailsFragments
+    lateinit var inv: Inventory
+    private var currentFragment = 1000
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(
+            layoutInflater
+        )
+        setContentView(binding.root)
 
         // Make new inventory
-        this.inv = new Inventory();
+        inv = Inventory()
 
         // inisiasi fragment
-        this.fm = this.getSupportFragmentManager();
-        this.productListFragments = ProductListFragments.newInstance(this.inv);
-        this.productTilesFragments = ProductTilesFragments.newInstance(this.inv);
-        this.productDetailsFragments = ProductDetailsFragments.newInstance();
-
-        this.fragments = new Fragment[3];
-
-        this.fragments[0] = this.productListFragments;
-        this.fragments[1] = this.productTilesFragments;
-        this.fragments[2] = this.productDetailsFragments;
-
-        FragmentTransaction ft = this.fm.beginTransaction();
-        ft.add(R.id.fragment_container, this.productListFragments).addToBackStack(null).commit();
-        this.currentFragment = 0;
+        fm = this.supportFragmentManager
+        productListFragments = ProductListFragments.newInstance(inv)
+        productTilesFragments = ProductTilesFragments.newInstance(inv)
+        productDetailsFragments = ProductDetailsFragments.newInstance()
+        fragments = arrayOf(
+         productListFragments,
+        productTilesFragments,
+        productDetailsFragments)
+        val ft = fm.beginTransaction()
+        ft.add(R.id.fragment_container, productListFragments).addToBackStack(null).commit()
+        currentFragment = 0
 
         // changePage listener
-        this.getSupportFragmentManager().setFragmentResultListener(
-                "CHANGE_PAGE", this, new FragmentResultListener() {
-                    @Override
-                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        int page = result.getInt("page");
-                        changePage(page);
-                    }
-                }
-        );
+        this.supportFragmentManager.setFragmentResultListener(
+            "CHANGE_PAGE", this
+        ) { requestKey, result ->
+            val page = result.getInt("page")
+            changePage(page)
+        }
     }
 
-    private int changePage (int page) {
+    private fun changePage(page: Int): Int {
         if (page == Page.PAGE_EXIT) {
-            this.closeApplication();
-            return -1;
+            closeApplication()
+            return -1
         }
 
         // SET ANIMASI KETIKA GESER, PENCET, DLL
@@ -80,32 +70,32 @@ public class MainActivity extends AppCompatActivity {
 //                R.anim.fade_in,
 //                R.anim.slide_out
 //        );
-
-        this.ft = this.fm.beginTransaction();
-
-        if (this.currentFragment != 1000) {
-            this.ft.hide(this.fragments[this.currentFragment]);
+        ft = fm.beginTransaction()
+        if (currentFragment != 1000) {
+            ft.hide(fragments[currentFragment])
         }
-
-        if (this.fragments[page].isAdded()) {
-            this.ft.show(this.fragments[page]);
-        }else{
-            this.ft.add(R.id.fragment_container, this.fragments[page]);
+        if (fragments[page].isAdded) {
+            ft.show(fragments[page])
+        } else {
+            ft.add(R.id.fragment_container, fragments[page])
         }
-
-        this.ft.commit();
-        this.currentFragment = page;
-        return -1;
+        ft.commit()
+        currentFragment = page
+        return -1
     }
 
-    private void closeApplication () {
-        this.moveTaskToBack(true);
-        this.finish();
+    private fun closeApplication() {
+        moveTaskToBack(true)
+        finish()
     }
 
     // METHOD KETIKA TOMBOL BACK DITEKAN
-    @Override
-    public void onBackPressed () {
-        this.changePage(backPointer[this.currentFragment]);
+    override fun onBackPressed() {
+        changePage(backPointer[currentFragment])
+    }
+
+    companion object {
+        private val backPointer =
+            intArrayOf(Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE)
     }
 }
