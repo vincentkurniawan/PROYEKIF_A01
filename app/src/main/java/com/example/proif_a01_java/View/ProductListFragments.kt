@@ -1,7 +1,5 @@
 package com.example.proif_a01_java.View
 
-
-
 import android.widget.AdapterView
 import com.example.proif_a01_java.Model.Inventory
 import com.example.proif_a01_java.Presenter.ProductPresenter
@@ -22,27 +20,33 @@ import org.parceler.Parcels
 import com.example.proif_a01_java.databinding.FragmentProductListBinding
 import java.util.ArrayList
 
-class ProductListFragments  // constructor kosong
-    : Fragment(), IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
+class ProductListFragments: Fragment(), IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
+
     lateinit var inv: Inventory
     lateinit var binding: FragmentProductListBinding
     lateinit var presenter: ProductPresenter
     lateinit var adapter: ProductListAdapter
     private var loadNumber = 0
     private var availLoads = 0
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
 
+    companion object {
+        // singleton
+        fun newInstance(inv: Inventory): ProductListFragments {
+            val fragments = ProductListFragments()
+            fragments.inv = inv
+            return fragments
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // viewBinding
         binding = FragmentProductListBinding.inflate(inflater, container, false)
 
         // inisiasi
         presenter = ProductPresenter(this)
         adapter = ProductListAdapter(requireActivity(), presenter)
 
-        // set adapter
+        // set adapter list produk
         binding.lvProducts.adapter = adapter
 
         // filtering
@@ -67,7 +71,7 @@ class ProductListFragments  // constructor kosong
         // set onclick listener
         binding.ivTiles.setOnClickListener { view: View -> onClick(view) }
         binding.productName.setOnClickListener { view: View -> onClick(view) }
-        binding.price.setOnClickListener(this)
+        binding.price.setOnClickListener{ view: View -> onClick(view) }
         binding.category.setOnClickListener { view: View -> onClick(view) }
         binding.condition.setOnClickListener { view: View -> onClick(view) }
         binding.showMore.setOnClickListener { view: View -> onClick(view) }
@@ -113,21 +117,22 @@ class ProductListFragments  // constructor kosong
     override fun moveToDetails(product: Product) {
         val result = Bundle()
         result.putParcelable("products", Parcels.wrap(product))
-       parentFragmentManager.setFragmentResult("MOVE_DETAILS", result)
+        result.putInt("pageFrom", Page.PAGE_LIST_MODE)
+        parentFragmentManager.setFragmentResult("MOVE_DETAILS", result)
         changePage(Page.PAGE_DETAILS_MODE)
     }
 
     override fun onClick(view: View) {
         // tombol ubah ke tiles mode
-        if (view === binding.ivTiles) {
+        if (view == binding.ivTiles) {
             changePage(Page.PAGE_TILES_MODE)
-        } else if (view === binding.productName) {
+        } else if (view == binding.productName) {
             presenter.sortProductBasedName()
-        } else if (view === binding.condition) {
+        } else if (view == binding.condition) {
             presenter.sortProductBasedCondition()
-        } else if (view === binding.price) {
+        } else if (view == binding.price) {
             presenter.sortProductBasedPrice()
-        } else if (view === binding.showMore) {
+        } else if (view == binding.showMore) {
             loadMoreProducts()
         }
     }
@@ -139,18 +144,12 @@ class ProductListFragments  // constructor kosong
         parentFragmentManager.setFragmentResult("CHANGE_PAGE", result)
     }
 
+    // method untuk spinner
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
         presenter.changeCategory(i - 1)
     }
 
     override fun onNothingSelected(adapterView: AdapterView<*>) {}
 
-    companion object {
-        // singleton
-        fun newInstance(inv: Inventory): ProductListFragments {
-            val fragments = ProductListFragments()
-            fragments.inv = inv
-            return fragments
-        }
-    }
+
 }

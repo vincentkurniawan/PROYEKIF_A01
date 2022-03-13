@@ -11,13 +11,11 @@ import android.view.ViewGroup
 import com.example.proif_a01_java.databinding.ProductListItemBinding
 import java.util.ArrayList
 
-class ProductListAdapter(
-    private val activity: Activity,
-    presenter: ProductPresenter
-) : BaseAdapter() {
+class ProductListAdapter(private val activity: Activity, private var presenter: ProductPresenter) : BaseAdapter() {
+
     lateinit var binding: ProductListItemBinding
-    lateinit var products: ArrayList<Product>
-    lateinit var presenter: ProductPresenter
+    var products: ArrayList<Product> = ArrayList()
+
     fun loadData(products: ArrayList<Product>) {
         this.products = ArrayList()
         this.products.addAll(products)
@@ -54,10 +52,5 @@ class ProductListAdapter(
         binding.price.text = "$ " + currProduct.price
         binding.root.setOnClickListener { presenter.moveToDetails(currProduct) }
         return binding.root
-    }
-
-    init {
-        products = ArrayList()
-        this.presenter = presenter
     }
 }

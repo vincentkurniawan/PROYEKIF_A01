@@ -5,6 +5,7 @@ import java.util.ArrayList
 import kotlinx.parcelize.Parcelize
 @Parcelize
 class Product() : Parcelable {
+
     lateinit var name: String
     lateinit var category: String
     var price :Int=0
@@ -22,6 +23,14 @@ class Product() : Parcelable {
         this.description = description
         photo = ArrayList()
         setPhoto(name)
+    }
+
+    companion object {
+        const val CONDITION_NEW = 0
+        const val CONDITION_90 = 1
+        const val CONDITION_50 = 2
+        const val CATEGORY_MOBILE = 0
+        const val CATEGORY_TABLET = 1
     }
 
     private fun formatCondition(condition: Int) {
@@ -200,13 +209,5 @@ class Product() : Parcelable {
                 photo!!.add("@drawable/samsungs10_3")
             }
         }
-    }
-
-    companion object {
-        const val CONDITION_NEW = 0
-        const val CONDITION_90 = 1
-        const val CONDITION_50 = 2
-        const val CATEGORY_MOBILE = 0
-        const val CATEGORY_TABLET = 1
     }
 }

@@ -18,18 +18,22 @@ import com.example.proif_a01_java.Model.Page
 
 import com.example.proif_a01_java.databinding.FragmentProductDetailsBinding
 
-class ProductDetailsFragments  // constructor kosong
-    : Fragment(), View.OnClickListener, OnTouchListener {
+class ProductDetailsFragments: Fragment(), View.OnClickListener, OnTouchListener {
+
     lateinit var binding: FragmentProductDetailsBinding
     private var x1 = 0f
     private var x2 = 0f
     private var curPic = 0
     lateinit var curProduct: Product
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private var pageFrom: Int = Page.PAGE_LIST_MODE
+
+    companion object {
+        fun newInstance(): ProductDetailsFragments {
+            return ProductDetailsFragments()
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
 
@@ -37,6 +41,7 @@ class ProductDetailsFragments  // constructor kosong
         parentFragmentManager.setFragmentResultListener(
             "MOVE_DETAILS", this
         ) { requestKey, result ->
+            pageFrom = result.getInt("pageFrom")
             val product = Parcels.unwrap<Any>(result.getParcelable("products")) as Product
             setProducts(product)
         }
@@ -44,12 +49,7 @@ class ProductDetailsFragments  // constructor kosong
         // set onclick listener
         binding.btnAdd.setOnClickListener { view: View -> onClick(view) }
         binding.ivBack.setOnClickListener { view: View -> onClick(view) }
-        binding.ivPics.setOnTouchListener { view: View, motionEvent: MotionEvent ->
-            onTouch(
-                view,
-                motionEvent
-            )
-        }
+        binding.ivPics.setOnTouchListener { view: View, motionEvent: MotionEvent ->onTouch(view,motionEvent)}
         return binding.root
     }
 
@@ -62,7 +62,6 @@ class ProductDetailsFragments  // constructor kosong
         binding.tvDesc.text = product.description
         curProduct = product
 
-        // sementara belum carousel, !PERLU DIUBAH JADI BENTUK CAROUSEL!
         //IMPLEMENTASI GLIDE LIBRARY
         Glide.with(requireActivity())
             .load(
@@ -80,7 +79,7 @@ class ProductDetailsFragments  // constructor kosong
         if (view === binding.btnAdd) {
             addCartToast()
         } else if (view === binding.ivBack) {
-            changePage(Page.PAGE_LIST_MODE)
+            changePage(pageFrom)
         }
     }
 
@@ -137,12 +136,5 @@ class ProductDetailsFragments  // constructor kosong
             )
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(binding.ivPics)
-    }
-
-    companion object {
-        // singleton
-        fun newInstance(): ProductDetailsFragments {
-            return ProductDetailsFragments()
-        }
     }
 }

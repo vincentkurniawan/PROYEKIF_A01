@@ -1,41 +1,43 @@
 package com.example.proif_a01_java.View
 
-import com.example.proif_a01_java.View.IProducts
 import android.widget.AdapterView
 import com.example.proif_a01_java.Model.Inventory
 import com.example.proif_a01_java.Presenter.ProductPresenter
-import com.example.proif_a01_java.View.ProductTilesAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
 import android.text.TextWatcher
 import android.text.Editable
 import android.view.View
-import android.widget.Spinner
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.proif_a01_java.Model.Page
 import com.example.proif_a01_java.R
 import com.example.proif_a01_java.Model.Product
 import org.parceler.Parcels
-import com.example.proif_a01_java.View.ProductTilesFragments
 import com.example.proif_a01_java.databinding.FragmentProductTilesBinding
 import java.util.ArrayList
 
-class ProductTilesFragments  // constructor kosong
-    : Fragment(), IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
+class ProductTilesFragments: Fragment(), IProducts, View.OnClickListener, AdapterView.OnItemSelectedListener {
+
     lateinit var inv: Inventory
     lateinit var binding: FragmentProductTilesBinding
     lateinit var presenter: ProductPresenter
     lateinit var adapter: ProductTilesAdapter
     private var availLoads = 0
     private var loadNumber = 0
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    companion object {
+        // singleton
+        fun newInstance(inv: Inventory): ProductTilesFragments {
+            val fragments = ProductTilesFragments()
+            fragments.inv = inv
+            return fragments
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // viewBinding
         binding = FragmentProductTilesBinding.inflate(inflater, container, false)
 
         // inisiasi
@@ -112,6 +114,7 @@ class ProductTilesFragments  // constructor kosong
     override fun moveToDetails(product: Product) {
         val result = Bundle()
         result.putParcelable("products", Parcels.wrap(product))
+        result.putInt("pageFrom", Page.PAGE_TILES_MODE)
         parentFragmentManager.setFragmentResult("MOVE_DETAILS", result)
         changePage(Page.PAGE_DETAILS_MODE)
     }
@@ -132,18 +135,12 @@ class ProductTilesFragments  // constructor kosong
         parentFragmentManager.setFragmentResult("CHANGE_PAGE", result)
     }
 
+    // spinner
     override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
         presenter.changeCategory(i - 1)
     }
 
     override fun onNothingSelected(adapterView: AdapterView<*>) {}
 
-    companion object {
-        // singleton
-        fun newInstance(inv: Inventory): ProductTilesFragments {
-            val fragments = ProductTilesFragments()
-            fragments.inv = inv
-            return fragments
-        }
-    }
+
 }

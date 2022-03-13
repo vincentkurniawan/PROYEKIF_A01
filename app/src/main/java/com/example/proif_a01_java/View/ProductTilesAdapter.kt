@@ -11,11 +11,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.proif_a01_java.databinding.ProductTilesItemBinding
 import java.util.ArrayList
 
-class ProductTilesAdapter(private val activity: Activity, presenter: ProductPresenter) :
-    BaseAdapter() {
+class ProductTilesAdapter(private val activity: Activity, private var presenter: ProductPresenter) :BaseAdapter() {
+
     lateinit var binding: ProductTilesItemBinding
-    lateinit var products: ArrayList<Product>
-    lateinit var presenter: ProductPresenter
+    var products: ArrayList<Product> = ArrayList()
+
     fun loadData(products: ArrayList<Product>) {
         this.products = products
         notifyDataSetChanged()
@@ -65,10 +65,5 @@ class ProductTilesAdapter(private val activity: Activity, presenter: ProductPres
             .into(binding.ivProducts)
         binding.root.setOnClickListener { presenter.moveToDetails(currProduct) }
         return binding.root
-    }
-
-    init {
-        products = ArrayList()
-        this.presenter = presenter
     }
 }

@@ -4,11 +4,10 @@ import com.example.proif_a01_java.View.IProducts
 import com.example.proif_a01_java.Model.Product
 import java.util.*
 
-class ProductPresenter(ui: IProducts) {
-    private val products: ArrayList<Product>
-    private val ui: IProducts
-    private var sortCode // 1 for name 2 for price 3 for condition
-            : Int
+class ProductPresenter(private val ui: IProducts) {
+
+    private var products: ArrayList<Product> = ArrayList()
+    private var sortCode: Int = 0
 
     fun loadProducts(newProduct: ArrayList<Product>) {
         products.addAll(newProduct)
@@ -27,11 +26,11 @@ class ProductPresenter(ui: IProducts) {
     }
 
     fun sortProductBasedName() {
-        if (sortCode == 1) {
+        if (sortCode == 1) { // descending
             Collections.sort(products) { product, t1 -> product.name.compareTo(t1.name) }
             sortCode = 0
             ui.loadProducts(products)
-        } else {
+        } else { // ascending
             Collections.sort(products) { product, t1 -> t1.name.compareTo(product.name) }
             sortCode = 1
             ui.loadProducts(products)
@@ -39,33 +38,23 @@ class ProductPresenter(ui: IProducts) {
     }
 
     fun sortProductBasedCondition() {
-        if (sortCode == 2) {
-            Collections.sort(products) { product, t1 ->
-                product.condition.compareTo(
-                    t1.condition
-                )
-            }
+        if (sortCode == 2) { // descending
+            Collections.sort(products) { product, t1 -> product.condition.compareTo(t1.condition) }
             sortCode = 0
             ui.loadProducts(products)
-        } else {
-            val sortedProducts = ArrayList<Product>()
-            sortedProducts.addAll(products)
-            Collections.sort(sortedProducts) { product, t1 ->
-                t1.condition.compareTo(
-                    product.condition
-                )
-            }
+        } else { // ascending
+            Collections.sort(products) { product, t1 -> t1.condition.compareTo(product.condition) }
             sortCode = 2
-            ui.loadProducts(sortedProducts)
+            ui.loadProducts(products)
         }
     }
 
     fun sortProductBasedPrice() {
-        if (sortCode == 3) {
+        if (sortCode == 3) { // descending
             Collections.sort(products) { product, t1 -> Integer.compare(product.price, t1.price) }
             sortCode = 0
             ui.loadProducts(products)
-        } else {
+        } else { // ascending
             Collections.sort(products) { product, t1 -> Integer.compare(t1.price, product.price) }
             sortCode = 3
             ui.loadProducts(products)
@@ -104,11 +93,5 @@ class ProductPresenter(ui: IProducts) {
 
     fun moveToDetails(product: Product) {
         ui.moveToDetails(product)
-    }
-
-    init {
-        this.ui = ui
-        products = ArrayList()
-        sortCode = 0
     }
 }

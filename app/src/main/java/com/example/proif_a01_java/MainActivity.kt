@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var productDetailsFragments: ProductDetailsFragments
     lateinit var inv: Inventory
     private var currentFragment = 1000
+    private val backPointer = intArrayOf(Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE);
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(
@@ -94,8 +95,8 @@ class MainActivity : AppCompatActivity() {
         changePage(backPointer[currentFragment])
     }
 
-    companion object {
-        private val backPointer =
-            intArrayOf(Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE)
-    }
+//    companion object {
+//        private val backPointer =
+//            intArrayOf(Page.PAGE_EXIT, Page.PAGE_LIST_MODE, Page.PAGE_LIST_MODE)
+//    }
 }
