@@ -62,4 +62,9 @@ public class Product {
                 this.photo = "";
         }
     }
+
+    public boolean validateInput(){
+        return ((this.condition.equals("NEW") || this.condition.equals("90% CONDITION") || this.condition.equals("50% CONDITION"))
+                && (this.category.equals("MOBILE") || this.category.equals("TABLET")));
+    }
 }
